@@ -6,24 +6,38 @@
 </head>
 <body>
 	<div id="no-display" style="display:none;"></div>
-	<div><p>User ID: <span id="user-id"></span></p>
-	<div style="border:1;"><ul id="conversation"></ul></div>
+	<p>User ID: <span id="user-id"></span></p>
+	<ul id="conversation"></ul>
 	<input type="text" id="text-input" placeholder="text">
 
 	<script>
-	var appId = '5a4becab852acd004bdedffc';
+	var appId = '<your-app-id>';
 	var inputElement = document.getElementById('text-input');
 
     !function(e,n,t,r){
         function o(){try{var e;if((e="string"==typeof this.response?JSON.parse(this.response):this.response).url){var t=n.getElementsByTagName("script")[0],r=n.createElement("script");r.async=!0,r.src=e.url,t.parentNode.insertBefore(r,t)}}catch(e){}}var s,p,a,i=[],c=[];e[t]={init:function(){s=arguments;var e={then:function(n){return c.push({type:"t",next:n}),e},catch:function(n){return c.push({type:"c",next:n}),e}};return e},on:function(){i.push(arguments)},render:function(){p=arguments},destroy:function(){a=arguments}},e.__onWebMessengerHostReady__=function(n){if(delete e.__onWebMessengerHostReady__,e[t]=n,s)for(var r=n.init.apply(n,s),o=0;o<c.length;o++){var u=c[o];r="t"===u.type?r.then(u.next):r.catch(u.next)}p&&n.render.apply(n,p),a&&n.destroy.apply(n,a);for(o=0;o<i.length;o++)n.on.apply(n,i[o])};var u=new XMLHttpRequest;u.addEventListener("load",o),u.open("GET","https://"+r+".webloader.smooch.io/",!0),u.responseType="json",u.send()
     }(window,document,"Smooch", appId);
 
-    // Initialize Smooch and render the UI in a hidden element
+	inputElement.onkeyup = function(e) {
+		if (e.key === 'Enter') {
+			Smooch.sendMessage(inputElement.value)
+				.then(() => {
+					inputElement.value = '';
+
+					// update the user ID
+					displayUserId(Smooch.getUser());
+				});
+		}
+	}
+
+	// display new messages
+	Smooch.on('message:sent', displayMessage);
+	Smooch.on('message:received', displayMessage);
+
+    // initialize Smooch and render the UI in a hidden element
     Smooch.render(document.getElementById('no-display'));
     Smooch.init({ appId: appId, embedded: true })
     	.then(function () {
-    		console.log('inited');
-
     		// displays initial messages
 			const conversation = Smooch.getConversation();
 			conversation.messages.forEach(displayMessage);
@@ -32,17 +46,8 @@
 			const user = Smooch.getUser();
 			displayUserId(user);
     	});
-    
-	inputElement.onkeyup = function(e) {
-		if (e.key === 'Enter') {
-			console.log('sendMessage', inputElement.value);
-			Smooch.sendMessage(inputElement.value);
-			inputElement.value = '';
-		}
-	}
 
     function displayMessage(message) {
-    	console.log('displayMessage', message);
 		const conversationElement = document.getElementById('conversation');
 		const messageElement = document.createElement('li');
 		messageElement.innerText = message.name + ' says "' + message.text + '"';
@@ -50,7 +55,6 @@
 	}
 
 	function displayUserId(user) {
-		console.log('displayUserId', user);
 		document.getElementById('user-id').innerText = user ? user._id : 'None';
 	}
 	</script>
