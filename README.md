@@ -1,8 +1,10 @@
 # Creating your own UI for the Smooch Web Messenger
 
-If needed you can completely replace Smooch's default Web Messenger UI with your own interface.
+The Smooch Web messenger comes with a rich prebuilt user interface with the option to configure the interface using the [Smooch dashboard](https://docs.smooch.io/guide/web-messenger/#styling-the-conversation-interface) or the [REST API](https://docs.smooch.io/rest/#web-messenger-integration).
 
-The Smooch Web messenger comes with a rich prebuilt user interface with the option to configure the interface using the [Smooch dashboard](https://docs.smooch.io/guide/web-messenger/#styling-the-conversation-interface) or the [REST API](https://docs.smooch.io/rest/#web-messenger-integration). Although you can replace the default UI, note that this means rewriting support for all the [Smooch message types](https://docs.smooch.io/guide/structured-messages/), that you want to support in your custom UI.
+**If needed you can completely replace Smooch's default Web Messenger UI with your own interface.**
+
+Although you can replace the default UI, note that this means rewriting support for all the [Smooch message types](https://docs.smooch.io/guide/structured-messages/), that you want to support in your custom UI.
 
 ## Overview
 
@@ -47,7 +49,7 @@ To initialize the SDK and access it's core messaging APIs, without displaying th
 
 - See the documentation for [embedded mode](https://github.com/smooch/smooch-web#embedded-mode)
 
-First, let's define the html element where the default UI will go to die:
+First, let's define the html element where the default UI will be hidden:
 
 ```html
 <div id="no-display" style="display:none;"></div>
@@ -75,7 +77,7 @@ OK, let's write HTML to 1) display the conversation, and 2) display our user ID:
 <ul id="conversation"></ul>
 ```
 
-Let's define a function in our JavaScript that we can call to display a message in our custom UI and anpother function to display the user ID:
+Let's define a function in our JavaScript that we can call to display a message in our custom UI, and another function to display the user ID:
 
 ```javascript
 function displayMessage(message) {
@@ -151,7 +153,7 @@ Smooch.on('message:received', displayMessage);
 
 ## Wrap up
 
-Voila, you've created your own UI for the Smooch Web SDK. Revel in it's glory:
+You've created your own UI for the Smooch Web SDK. It should look something like this:
 
 <img width="313" alt="custom_ui" src="https://user-images.githubusercontent.com/2235885/34859709-f9ac4e32-f725-11e7-8297-de84d7837bd1.png">
 
