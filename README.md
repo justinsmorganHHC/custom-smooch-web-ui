@@ -1,8 +1,10 @@
 # Creating your own UI for the Smooch Web Messenger
 
+**This guide shows you how to create your own UI for the Smooch Web Messenger.**
+
 The Smooch Web messenger comes with a rich prebuilt user interface with the option to configure the interface using the [Smooch dashboard](https://docs.smooch.io/guide/web-messenger/#styling-the-conversation-interface) or the [REST API](https://docs.smooch.io/rest/#web-messenger-integration).
 
-**If needed you can completely replace Smooch's default Web Messenger UI with your own interface.**
+If needed you can completely replace Smooch's default Web Messenger UI with your own interface.
 
 Although you can replace the default UI, note that this means rewriting support for all the [Smooch message types](https://docs.smooch.io/guide/structured-messages/), that you want to support in your custom UI.
 
