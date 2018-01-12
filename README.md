@@ -2,13 +2,11 @@
 
 If needed you can completely replace Smooch's default Web Messenger UI with your own interface.
 
-The Smooch Web messenger comes with a rich prebuilt user interface with the option to configure the interface using the [Smooch dashboard](https://docs.smooch.io/guide/web-messenger/#styling-the-conversation-interface) or the [REST API](https://docs.smooch.io/rest/#web-messenger-integration).
-
-Note that replacing this UI means rewriting support for all the [Smooch message types](https://docs.smooch.io/guide/structured-messages/), that you want to support in your custom UI.
+The Smooch Web messenger comes with a rich prebuilt user interface with the option to configure the interface using the [Smooch dashboard](https://docs.smooch.io/guide/web-messenger/#styling-the-conversation-interface) or the [REST API](https://docs.smooch.io/rest/#web-messenger-integration). Although you can replace the default UI, note that this means rewriting support for all the [Smooch message types](https://docs.smooch.io/guide/structured-messages/), that you want to support in your custom UI.
 
 ## Overview
 
-The Web messenger can be initialized without displaying it's default UI. You can then make use of the JavaScript based SDK's messaging APIs to send messages, and it's callback event interface to receive messages.
+The Web messenger can be initialized without displaying it's default UI. You can then make use of the SDK's messaging APIs to send messages, and it's callback event interface to receive messages.
 
 This guide covers:
 - [initializing the SDK](#initialize-the-sdk)
@@ -70,7 +68,7 @@ The SDK exposes methods to fetch the appUser object and conversation state. We u
 
 - See the documentation for [`Smooch.getUser`](https://github.com/smooch/smooch-web#getuser). This method gives you access to the complete user record that Smooch stores.
 
-OK, let's write HTML to 1) conversation view and 2) display our user ID:
+OK, let's write HTML to 1) display the conversation, and 2) display our user ID:
 
 ```html
 <p>User ID: <span id="user-id"></span></p>
@@ -140,7 +138,7 @@ If you send a few messages and go look in your Smooch logs on the dashboard, you
 
 ## Receive messages
 
-In order to update the UI with the content of new messages we can use Smooch's event interface `on`. We're interested in handling two events `message:received` for incoming messages and `message:sent` for outbound messages.
+In order to update the UI with the content of new messages, we can use Smooch's event interface `on`. We're interested in handling two events `message:received` for incoming messages and `message:sent` for outbound messages.
 
 - See the documentation for [events](https://github.com/smooch/smooch-web#events)
 
