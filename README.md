@@ -60,8 +60,8 @@ First, let's define the html element where the default UI will be hidden:
 Next, we'll initialize the Smooch SDK and render the Web Messenger in our invisible element:
 
 ```javascript
-Smooch.render(document.getElementById('no-display'));
 Smooch.init({ appId: appId, embedded: true });
+Smooch.render(document.getElementById('no-display'));
 ```
 
 ## Fetch the initial data
@@ -120,7 +120,7 @@ We can create an input element in our HTML to accept plain text user messages:
 <input type="text" id="text-input" placeholder="text">
 ```
 
-Now, we'll call the `Smooch.sendMessage` function each time the enter key is pressed while our input element is active. Somewhere in your JavaScript, below where the SDK is loaded, add:
+Now, we'll call the `Smooch.sendMessage` function each time the enter key is pressed while our input element is active. Add the following after you Smooch.init call:
 
 ```javascript
 var inputElement = document.getElementById('text-input');
@@ -138,7 +138,7 @@ inputElement.onkeyup = function(e) {
 }
 ```
 
-If you send a few messages and go look in your Smooch logs on the dashboard, you'll see them logged.
+To confirm that messages are sent, open the Logs for the app are using in the [Smooch dashboard](https://app.smooch.io/).
 
 ## Receive messages
 
@@ -159,6 +159,10 @@ You've created your own UI for the Smooch Web SDK. It should look something like
 
 <img width="313" alt="custom_ui" src="https://user-images.githubusercontent.com/2235885/34859709-f9ac4e32-f725-11e7-8297-de84d7837bd1.png">
 
+Now you might want to consider how you'll represent more complex messages and activites, such as:
+- [structured messages](https://docs.smooch.io/guide/structured-messages/)
+- [conversation extensions](https://docs.smooch.io/guide/conversation-extensions/)
+- [conversation activity](https://docs.smooch.io/rest/#conversation-activity)
 
 Here's the complete code for this guide:
 
@@ -200,7 +204,6 @@ Here's the complete code for this guide:
   Smooch.on('message:received', displayMessage);
 
   // initialize Smooch and render the UI in a hidden element
-  Smooch.render(document.getElementById('no-display'));
   Smooch.init({ appId: appId, embedded: true })
     .then(function () {
       // displays initial messages
@@ -211,6 +214,8 @@ Here's the complete code for this guide:
       var user = Smooch.getUser();
       displayUserId(user);
     });
+
+  Smooch.render(document.getElementById('no-display'));
 
   function displayMessage(message) {
     var conversationElement = document.getElementById('conversation');

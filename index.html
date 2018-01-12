@@ -35,7 +35,6 @@
   Smooch.on('message:received', displayMessage);
 
   // initialize Smooch and render the UI in a hidden element
-  Smooch.render(document.getElementById('no-display'));
   Smooch.init({ appId: appId, embedded: true })
     .then(function () {
       // displays initial messages
@@ -46,6 +45,8 @@
       var user = Smooch.getUser();
       displayUserId(user);
     });
+
+  Smooch.render(document.getElementById('no-display'));
 
   function displayMessage(message) {
     var conversationElement = document.getElementById('conversation');
