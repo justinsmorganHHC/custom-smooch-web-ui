@@ -1,62 +1,62 @@
-  <!DOCTYPE html>
-  <html lang="en">
-  <head>
-  	<meta charset="UTF-8">
-  	<title>Document</title>
-  </head>
-  <body>
-  	<div id="no-display" style="display:none;"></div>
-  	<p>User ID: <span id="user-id"></span></p>
-  	<ul id="conversation"></ul>
-  	<input type="text" id="text-input" placeholder="text">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+  <div id="no-display" style="display:none;"></div>
+  <p>User ID: <span id="user-id"></span></p>
+  <ul id="conversation"></ul>
+  <input type="text" id="text-input" placeholder="text">
 
-  	<script>
-  	var appId = '<your-app-id>';
-  	var inputElement = document.getElementById('text-input');
+  <script>
+  var appId = '<your-app-id>';
+  var inputElement = document.getElementById('text-input');
 
-      !function(e,n,t,r){
-          function o(){try{var e;if((e="string"==typeof this.response?JSON.parse(this.response):this.response).url){var t=n.getElementsByTagName("script")[0],r=n.createElement("script");r.async=!0,r.src=e.url,t.parentNode.insertBefore(r,t)}}catch(e){}}var s,p,a,i=[],c=[];e[t]={init:function(){s=arguments;var e={then:function(n){return c.push({type:"t",next:n}),e},catch:function(n){return c.push({type:"c",next:n}),e}};return e},on:function(){i.push(arguments)},render:function(){p=arguments},destroy:function(){a=arguments}},e.__onWebMessengerHostReady__=function(n){if(delete e.__onWebMessengerHostReady__,e[t]=n,s)for(var r=n.init.apply(n,s),o=0;o<c.length;o++){var u=c[o];r="t"===u.type?r.then(u.next):r.catch(u.next)}p&&n.render.apply(n,p),a&&n.destroy.apply(n,a);for(o=0;o<i.length;o++)n.on.apply(n,i[o])};var u=new XMLHttpRequest;u.addEventListener("load",o),u.open("GET","https://"+r+".webloader.smooch.io/",!0),u.responseType="json",u.send()
-      }(window,document,"Smooch", appId);
+  !function(e,n,t,r){
+    function o(){try{var e;if((e="string"==typeof this.response?JSON.parse(this.response):this.response).url){var t=n.getElementsByTagName("script")[0],r=n.createElement("script");r.async=!0,r.src=e.url,t.parentNode.insertBefore(r,t)}}catch(e){}}var s,p,a,i=[],c=[];e[t]={init:function(){s=arguments;var e={then:function(n){return c.push({type:"t",next:n}),e},catch:function(n){return c.push({type:"c",next:n}),e}};return e},on:function(){i.push(arguments)},render:function(){p=arguments},destroy:function(){a=arguments}},e.__onWebMessengerHostReady__=function(n){if(delete e.__onWebMessengerHostReady__,e[t]=n,s)for(var r=n.init.apply(n,s),o=0;o<c.length;o++){var u=c[o];r="t"===u.type?r.then(u.next):r.catch(u.next)}p&&n.render.apply(n,p),a&&n.destroy.apply(n,a);for(o=0;o<i.length;o++)n.on.apply(n,i[o])};var u=new XMLHttpRequest;u.addEventListener("load",o),u.open("GET","https://"+r+".webloader.smooch.io/",!0),u.responseType="json",u.send()
+  }(window,document,"Smooch", appId);
 
-  	inputElement.onkeyup = function(e) {
-  		if (e.key === 'Enter') {
-  			Smooch.sendMessage(inputElement.value)
-  				.then(() => {
-  					inputElement.value = '';
+  inputElement.onkeyup = function(e) {
+    if (e.key === 'Enter') {
+      Smooch.sendMessage(inputElement.value)
+        .then(function() {
+          inputElement.value = '';
 
-  					// update the user ID
-  					displayUserId(Smooch.getUser());
-  				});
-  		}
-  	}
+          // update the user ID
+          displayUserId(Smooch.getUser());
+        });
+    }
+  }
 
-  	// display new messages
-  	Smooch.on('message:sent', displayMessage);
-  	Smooch.on('message:received', displayMessage);
+  // display new messages
+  Smooch.on('message:sent', displayMessage);
+  Smooch.on('message:received', displayMessage);
 
-      // initialize Smooch and render the UI in a hidden element
-      Smooch.render(document.getElementById('no-display'));
-      Smooch.init({ appId: appId, embedded: true })
-      	.then(function () {
-      		// displays initial messages
-  			const conversation = Smooch.getConversation();
-  			conversation.messages.forEach(displayMessage);
+  // initialize Smooch and render the UI in a hidden element
+  Smooch.render(document.getElementById('no-display'));
+  Smooch.init({ appId: appId, embedded: true })
+    .then(function () {
+      // displays initial messages
+      var conversation = Smooch.getConversation();
+      conversation.messages.forEach(displayMessage);
 
-  			// display user ID if user currently exists
-  			const user = Smooch.getUser();
-  			displayUserId(user);
-      	});
+      // display user ID if user currently exists
+      var user = Smooch.getUser();
+      displayUserId(user);
+    });
 
-      function displayMessage(message) {
-  		const conversationElement = document.getElementById('conversation');
-  		const messageElement = document.createElement('li');
-  		messageElement.innerText = message.name + ' says "' + message.text + '"';
-  		conversationElement.appendChild(messageElement);
-  	}
+  function displayMessage(message) {
+    var conversationElement = document.getElementById('conversation');
+    var messageElement = document.createElement('li');
+    messageElement.innerText = message.name + ' says "' + message.text + '"';
+    conversationElement.appendChild(messageElement);
+  }
 
-  	function displayUserId(user) {
-  		document.getElementById('user-id').innerText = user ? user._id : 'None';
-  	}
-  	</script>
-  </body>
-  </html>
+  function displayUserId(user) {
+    document.getElementById('user-id').innerText = user ? user._id : 'None';
+  }
+  </script>
+</body>
+</html>
